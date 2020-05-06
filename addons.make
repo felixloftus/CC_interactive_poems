@@ -1,6 +1,7 @@
+ofxCv
 ofxDspChain
 ofxGui
 ofxKinect
 ofxMaxim
 ofxOpenCv
-ofxOsc
+ofxXmlSettings
