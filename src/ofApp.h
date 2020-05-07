@@ -25,13 +25,6 @@ public:
     void exit();
     void keyPressed(int key);
     void keyReleased(int key);
-    void mouseMoved(int x, int y);
-    void mouseDragged(int x, int y, int button);
-    void mousePressed(int x, int y, int button);
-    void mouseReleased(int x, int y, int button);
-    void windowResized(int w, int h);
-    void dragEvent(ofDragInfo dragInfo);
-    void gotMessage(ofMessage msg);
     void triggered1( bool check);
     void triggered2();
     void triggered3( bool check2);
@@ -43,6 +36,7 @@ public:
 
     
     ofxKinect kinect;
+    
     ofxCvGrayscaleImage depthImage; //    This depth image is used to 'scan' the air
     ofxCvGrayscaleImage grayImage; /*these are for background subtraction*/
     ofxCvGrayscaleImage blurred;
@@ -56,18 +50,20 @@ public:
     double area;
     bool showLabels;
     int angle;
+    int timer;
     
 //    'Scanning' location and widths - global variables
     int farThresh,nearThresh;
     int scanStartY, scanEndY;
     int scanStartX, scanEndX;
     int scanWidthX, scanWidthY;
+    int altScanWidthX;
     int altScanEndX, altScanEndY;
     int altScanStartX, altScanStartY;
     int nearScan, farScan;
     int w,h;
     int depthScanWidth;
-    float timer;
+    float timerS;
 //    trigger for scanning - in some sections I only need the Kinect to work
 //    for a short amount of time
     
@@ -76,7 +72,7 @@ public:
     bool triggerSample, triggerSample2, triggerSample3, triggerSample4;
     
 //    {}[]][}{[}]][][
-//    Audio
+//    Core Audio setup
 //    {}{}][]][]{}}{]
     
     void audioOut(float * output, int bufferSize, int nChannels);
@@ -86,20 +82,12 @@ public:
     int        initialBufferSize; /* buffer size */
     int        sampleRate;
     
-//    plan is to start with 3 grainPlayers at once
-//    one with the bass - pitched low and slowed down - heavily filtered
-//    one with the main - mostly playing while slightly modulating
-//    final with the highs - use modulo to only play every so often - add delay that changes
-//    then can add other ambient breathing effects
-//    the speech should be the highs - w/a delay on them - like w/religion - poptones
-    
 //    samples
     maxiSample samp[12];
-    maxiSample bedSample[4];
     
 //    PitchStretching [granular synths]
-//    could just change the words to samples but pitch stretch gives me more flexibility to
-//    set position at any point
+//    Often these are just called like samples but having them in a
+//    pitch stretch object provides more flexibility on modulation
     maxiPitchStretch<grainPlayerWin> *gran[3], *voc[3], *breath[3], *synths[3]; /* change to array */
     
 //    vectors of Pitch Stretches [granular synths]
